@@ -12,8 +12,6 @@ def total_revenue(purchases):
         total += purchase["price"] * purchase["quantity"]
     return total
 
-print("Общая выручка:", total_revenue(purchases))
-
 
 # Верните словарь, где ключ — категория, а значение — список уникальных товаров в этой категории.
 def items_by_category(purchases):
@@ -62,7 +60,33 @@ def average_price_by_category(purchases):
     return average
 
 
+#  Найдите и верните категорию, в которой куплено больше всего единиц товаров (учитывайте поле quantity).
+def most_frequent_category(purchases):
+    quantities = {}
+
+    for purchase in purchases:
+        category = purchase["category"]
+        quantity = purchase["quantity"]
+
+        if category not in quantities:
+            quantities[category] = 0
+
+        quantities[category] += quantity
+
+    max_category = None
+    max_quantity = 0
+
+    for category in quantities:
+        if quantities[category] > max_quantity:
+            max_quantity = quantities[category]
+            max_category = category
+
+    return max_category
+
+
+
 print("Общая выручка:", total_revenue(purchases))
 print("Товары по категориям", items_by_category(purchases))
 print("Покупки дороже 1.0:", expensive_purchases(purchases, 1.0))
 print("Средняя цена по категориям:", average_price_by_category(purchases))
+print("Категория с наибольшим количеством проданных товаров:", most_frequent_category(purchases))
