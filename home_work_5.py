@@ -39,9 +39,30 @@ def expensive_purchases(purchases, min_price):
 
     return result
 
+# Рассчитайте среднюю цену товаров по каждой категории
+def average_price_by_category(purchases):
+    sum = {}
+    count = {}
 
+    for purchase in purchases:
+        category = purchase["category"]
+        price = purchase["price"]
+
+        if category not in sum:
+            sum[category] = 0
+            count[category] = 0
+
+        sum[category] += price
+        count[category] += 1
+
+    average = {}
+    for category in sum:
+        average[category] = sum[category] / count[category]
+
+    return average
 
 
 print("Общая выручка:", total_revenue(purchases))
 print("Товары по категориям", items_by_category(purchases))
 print("Покупки дороже 1.0:", expensive_purchases(purchases, 1.0))
+print("Средняя цена по категориям:", average_price_by_category(purchases))
